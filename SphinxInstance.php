@@ -24,7 +24,6 @@ class SphinxInstance extends SphinxClient
         $this->offset = 0;
         $this->limit = 25;
         $this->mode = self::SPH_MATCH_EXTENDED;
-
         $this->indexes = config('sphinxsearch.indexes') ?: [];
     }
 
@@ -36,13 +35,11 @@ class SphinxInstance extends SphinxClient
         if (!$totalCount) {
             return false;
         }
-
         $modelsQuery = $this->getModelsQuery($matches, $index);
 
         if ($trashed) {
             $modelsQuery->withTrashed();
         }
-
         return $modelsQuery->get($columns);
     }
 
@@ -63,7 +60,6 @@ class SphinxInstance extends SphinxClient
         if (!$totalCount) {
             return false;
         }
-
         $modelsQuery = $this->getModelsQuery($matches, $index);
         $result = $modelsQuery->get();
 
@@ -75,7 +71,6 @@ class SphinxInstance extends SphinxClient
         $this->setLimits($offsetOld, $limitOld);
         return $paginator;
     }
-
     private function getModelsQuery(array $matches, string $index)
     {
         $ids = array_keys($matches);
@@ -85,7 +80,6 @@ class SphinxInstance extends SphinxClient
         if (!empty($matches)) {
             $query->orderByRaw(DB::raw("FIELD(id, $idsStr)"));
         }
-
         return $query;
     }
     public function characterReplacement(string $str):string
