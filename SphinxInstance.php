@@ -90,6 +90,7 @@ class SphinxInstance extends SphinxClient
     }
     public function characterReplacement(string $str):string
     {
-        return str_replace(config('sphinxsearch.character_to_replace') , '*' , $str);
+        $symbol = array('!','?','=','/','_','|');
+        return str_replace($symbol, '*', $str);
     }
 }
